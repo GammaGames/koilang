@@ -20,7 +20,8 @@ func _popup_hide():
 
 
 func _text_changed():
-    var current_line = editor.cursor_get_line() - 1
+    var current_line = editor.cursor_get_line()
+    print(current_line)
     var lines = filter_array(editor.text.to_lower().split("\n"))
 
     # Remove unused to prevent memory leaks and resize
@@ -31,6 +32,7 @@ func _text_changed():
     self.words.resize(lines.size())
 
     for index in range(lines.size()):
+        print(index)
         var word = lines[index].split(" ")
         var word_object = words[index]
         if word_object == null:

@@ -39,4 +39,7 @@ func set_word(word, scale=Vector2.ONE):
 
 
 func set_highlighted(value):
-    pass
+    for character in characters:
+        character.color = Color.royalblue if value else Color.black
+        print(value, " ", character.color)
+        character.update()

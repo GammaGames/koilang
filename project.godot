@@ -25,7 +25,7 @@ Alphabet="*res://Alphabet.gd"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "rmsmartshape" )
+enabled=PoolStringArray(  )
 
 [rendering]
 

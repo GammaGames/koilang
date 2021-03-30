@@ -7,6 +7,7 @@ export(Texture) var texture
 export var radius = 60
 export var width = 35
 export var segments = 20
+export var color = Color.black
 
 
 func set_character(arc, texture, angle=0, radius=50, width=35, segments=20):
@@ -34,12 +35,7 @@ func _draw():
                 Vector2(cos(current_arc + delta_arc), sin(current_arc + delta_arc)) * (radius - width / 2),
                 Vector2(cos(current_arc), sin(current_arc)) * (radius - width / 2)
             ]),
-            PoolColorArray([
-                Color.white,
-                Color.red,
-                Color.green,
-                Color.blue
-            ]),
+            PoolColorArray([color, color, color, color]),
             PoolVector2Array([
                 Vector2(percent, 0),
                 Vector2(percent + delta_percent, 0),
@@ -48,5 +44,4 @@ func _draw():
             ]),
             texture
         )
-
         current_segment += 1
