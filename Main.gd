@@ -12,6 +12,7 @@ func _ready():
     editor_window.get_close_button().visible = false
     editor_window.connect("popup_hide", self, "_popup_hide")
     editor.connect("text_changed", self, "_text_changed")
+    editor.connect("cursor_changed", self, "_cursor_changed")
     _text_changed()
 
 
@@ -20,8 +21,7 @@ func _popup_hide():
 
 
 func _text_changed():
-    var current_line = editor.cursor_get_line()
-    print(current_line)
+    # var current_line = editor.cursor_get_line()
     var lines = filter_array(editor.text.to_lower().split("\n"))
 
     # Remove unused to prevent memory leaks and resize
@@ -41,7 +41,13 @@ func _text_changed():
             $Words.add_child(word_object)
 
         word_object.set_word(word)
-        word_object.set_highlighted(index == current_line)
+        # word_object.set_highlighted(index == current_line)
+
+
+func _cursor_changed():
+    var current_line = editor.cursor_get_line()
+    for index in range(words.size()):
+        words[index].set_highlighted(index == current_line)
 
 
 func filter_array(arr):

@@ -10,13 +10,13 @@ export var segments = 20
 export var color = Color.black
 
 
-func set_character(arc, texture, angle=0, radius=50, width=35, segments=20):
-    self.arc = arc
-    self.texture = texture
-    self.rotation = angle
-    self.radius = radius
-    self.width = width
-    self.segments = segments
+func set_character(ar, tex, ang=0, rad=50, w=35, segs=20):
+    self.arc = ar
+    self.texture = tex
+    self.rotation = ang
+    self.radius = rad
+    self.width = w
+    self.segments = segs
     update()
 
 
