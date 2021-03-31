@@ -28,6 +28,21 @@ func _draw():
         var percent = float(current_segment) / segments
         var current_arc = arc * percent + OFFSET
 
+        # draw_primitive(
+        #     PoolVector2Array([
+        #         Vector2(cos(current_arc), sin(current_arc)) * (radius + width / 2),
+        #         Vector2(cos(current_arc + delta_arc), sin(current_arc + delta_arc)) * (radius + width / 2),
+        #         Vector2(cos(current_arc + delta_arc), sin(current_arc + delta_arc)) * (radius - width / 2),
+        #         Vector2(cos(current_arc), sin(current_arc)) * (radius - width / 2)
+        #     ]),
+        #     PoolColorArray([Color.white, Color.red, Color.green, Color.blue]),
+        #     PoolVector2Array([
+        #         Vector2(percent, 0),
+        #         Vector2(percent + delta_percent, 0),
+        #         Vector2(percent + delta_percent, 1),
+        #         Vector2(percent, 1)
+        #     ])
+        # )
         draw_primitive(
             PoolVector2Array([
                 Vector2(cos(current_arc), sin(current_arc)) * (radius + width / 2),
@@ -45,3 +60,7 @@ func _draw():
             texture
         )
         current_segment += 1
+
+
+func _slider_changed(val):
+    self.rotation_degrees = val

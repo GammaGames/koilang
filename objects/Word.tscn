@@ -31,6 +31,8 @@ shader_param/line_color = Color( 1, 0, 0, 1 )
 shader_param/line_thickness = 100.0
 
 [sub_resource type="CircleShape2D" id=3]
+resource_local_to_scene = true
+radius = 0.01
 
 [node name="Word" type="Node2D"]
 material = SubResource( 2 )

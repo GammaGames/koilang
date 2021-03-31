@@ -19,7 +19,7 @@ func get_character(character):
         var search_index = tuples[index][0].find(character)
         if search_index > -1:
             return {
-                "angle":  float(search_index + 1) * TAU / 4,
+                "angle":  float(search_index + 1) * TAU / tuples[index][0].size(),
                 "texture": tuples[index][1]
             }
     return {

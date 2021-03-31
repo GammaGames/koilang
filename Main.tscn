@@ -15,6 +15,7 @@ margin_left = 523.0
 margin_top = 128.0
 margin_right = 779.0
 margin_bottom = 384.0
+size_flags_vertical = 3
 theme = ExtResource( 2 )
 resizable = true
 __meta__ = {
@@ -28,13 +29,21 @@ margin_left = 5.0
 margin_top = 5.0
 margin_right = -5.0
 margin_bottom = -5.0
+size_flags_vertical = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextEdit" type="TextEdit" parent="CanvasLayer/WindowDialog/MarginContainer"]
+[node name="Stack" type="VBoxContainer" parent="CanvasLayer/WindowDialog/MarginContainer"]
 margin_right = 246.0
 margin_bottom = 246.0
+size_flags_vertical = 3
+
+[node name="TextEdit" type="TextEdit" parent="CanvasLayer/WindowDialog/MarginContainer/Stack"]
+margin_right = 246.0
+margin_bottom = 246.0
+size_flags_horizontal = 11
+size_flags_vertical = 3
 show_line_numbers = true
 smooth_scrolling = true
 wrap_enabled = true

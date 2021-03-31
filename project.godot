@@ -23,6 +23,10 @@ config/icon="res://icon.png"
 
 Alphabet="*res://Alphabet.gd"
 
+[display]
+
+window/stretch/aspect="expand"
+
 [editor_plugins]
 
 enabled=PoolStringArray(  )

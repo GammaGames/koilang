@@ -1,10 +1,16 @@
 extends Node2D
 
+onready var words_parent = $Words
 onready var editor_window = $CanvasLayer/WindowDialog
-onready var editor = editor_window.get_node("MarginContainer/TextEdit")
+onready var stack = editor_window.get_node("MarginContainer/Stack")
+onready var editor = stack.get_node("TextEdit")
+# onready var word_container = editor_window.get_node("Word")
 
 var word_scene = preload("res://objects/Word.tscn")
+var word_edit_scene = preload("res://objects/WordEdit.tscn")
+var word_edit_node = null
 var words = []
+var dragging = null
 
 
 func _ready():
@@ -13,7 +19,7 @@ func _ready():
     editor_window.connect("popup_hide", self, "_popup_hide")
     editor.connect("text_changed", self, "_text_changed")
     editor.connect("cursor_changed", self, "_cursor_changed")
-    _text_changed()
+    editor.grab_focus()
 
 
 func _popup_hide():
@@ -32,29 +38,64 @@ func _text_changed():
     self.words.resize(lines.size())
 
     for index in range(lines.size()):
-        print(index)
         var word = lines[index].split(" ")
         var word_object = words[index]
         if word_object == null:
             word_object = word_scene.instance()
             words[index] = word_object
-            $Words.add_child(word_object)
+            words_parent.add_child(word_object)
+            word_object.connect("edit_word", self, "_edit_word")
 
         word_object.set_word(word)
         # word_object.set_highlighted(index == current_line)
 
 
+func _edit_word(word):
+    print("EDIT ", word)
+
+
 func _cursor_changed():
     var current_line = editor.cursor_get_line()
+    if self.word_edit_node:
+        self.word_edit_node.queue_free()
+
     for index in range(words.size()):
-        words[index].set_highlighted(index == current_line)
+        if words[index]:
+            words[index].set_highlighted(index == current_line)
+            if index == current_line:
+                self.word_edit_node = word_edit_scene.instance()
+                self.stack.add_child(self.word_edit_node)
+                self.word_edit_node.set_word(words[index])
+
+                self.word_edit_node.visible = words[index].text.length()
 
 
 func filter_array(arr):
     var results = []
     for row in arr:
-        var result = row.strip_edges()
-        if result.length():
-            results.append(result)
+        results.append(row.strip_edges())
 
     return results
+
+
+func _input(event):
+    if event is InputEventMouseButton:
+        if event.pressed and event.button_index == BUTTON_LEFT:
+            self.dragging = get_hovering()
+            if self.dragging:
+                self.dragging.start_dragging()
+        # elif not event.pressed and event.button_index == BUTTON_RIGHT:
+        #     var word_dialog = word_dialog_scene.instance()
+        #     word_dialog.set_word(target)
+        #     add_child(word_dialog)
+        #     print("EDIT")
+
+        elif self.dragging:
+            self.dragging.stop_dragging()
+            self.dragging = null
+
+
+func get_hovering():
+    for word in words:
+        if word.hovering:
+            return word

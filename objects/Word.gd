@@ -1,12 +1,17 @@
 extends Node2D
 
+var text = ""
+var word = []
 var character_scene = preload("res://objects/Character.tscn")
 var characters = []
-var hovered = false
-var hover_offset = Vector2.ZERO
+var hovering = false
+var dragging = false
+var mouse_offset = Vector2.ZERO
 
 onready var area = $Area2D
 onready var shape = area.get_node("CollisionShape2D").shape
+
+signal edit_word
 
 
 func _ready():
@@ -16,35 +21,45 @@ func _ready():
 
 
 func _mouse_entered():
-    self.hovered = true
+    self.hovering = true
 
 
 func _mouse_exited():
-    self.hovered = false
+    self.hovering = false
 
 
-func _process(_delta):
-    if self.hovered:
-        if Input.is_mouse_button_pressed(BUTTON_LEFT):
-            if self.hover_offset.length() == 0:
-                self.hover_offset = global_position - get_global_mouse_position()
-            global_position = get_global_mouse_position() + self.hover_offset
-        elif Input.is_mouse_button_pressed(BUTTON_RIGHT):
-            print("open edit")
-        else:
-            self.hover_offset = Vector2.ZERO
+func start_dragging():
+    self.mouse_offset = global_position - get_global_mouse_position()
+    self.dragging = true
 
 
-func set_word(word, scale=Vector2.ONE):
+func stop_dragging():
+    self.dragging = false
+
+
+func _input(event):
+    if event is InputEventMouseMotion and self.dragging:
+        global_position = get_global_mouse_position() + self.mouse_offset
+
+
+func _input_event(_viewport, event, _body_id):
+    if event is InputEventMouseButton:
+        if not event.pressed and event.button_index == BUTTON_RIGHT:
+            emit_signal("edit_word", self)
+
+
+func set_word(w):
+    self.text = w.join("").strip_edges()
+    self.word = w
     # Remove unused to prevent memory leaks and resize
     if word.size() < characters.size():
         for index in range(characters.size()):
-            if index >= word.size():
+            if index >= self.word.size():
                 characters[index].queue_free()
-    self.characters.resize(word.size())
+    self.characters.resize(self.word.size())
 
-    for index in range(word.size()):
-        var character = word[index]
+    for index in range(self.word.size()):
+        var character = self.word[index]
         var lookup = Alphabet.get_character(character)
         if lookup["texture"] != null:
             var character_object = characters[index]
@@ -53,24 +68,24 @@ func set_word(word, scale=Vector2.ONE):
                 characters[index] = character_object
                 add_child(character_object)
 
+            var radius = (index + 1) * 35
+            var width = 35
+            var segments = index + 1.5 * 30
             character_object.set_character(
                 lookup["angle"],
                 lookup["texture"],
-                index * TAU / 4,
-                (index + 1) * 25,
-                35,
-                index + 1.5 * 30
+                index * TAU / 5,
+                radius,
+                width,
+                segments
             )
-            shape.radius = (index + 1) * 25
+            shape.radius = radius
         else:
             print("ERROR: ", character)
 
-    self.scale = scale
-
-
 
 func set_highlighted(value):
-    for character in characters:
-        character.color = Color.royalblue if value else Color.black
-        print(value, " ", character.color)
-        character.update()
+    for character in self.characters:
+        if character:
+            character.color = Color.royalblue if value else Color.black
+            character.update()
