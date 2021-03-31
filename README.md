@@ -4,4 +4,4 @@
 
 Still very much a WIP!
 
-![preview](docs/img/preview.png)
+![preview](docs/img/preview.gif)
