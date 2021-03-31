@@ -11,9 +11,9 @@ follow_viewport_enable = true
 
 [node name="WindowDialog" type="WindowDialog" parent="CanvasLayer"]
 visible = true
-margin_left = 523.0
+margin_left = 600.0
 margin_top = 128.0
-margin_right = 779.0
+margin_right = 856.0
 margin_bottom = 384.0
 size_flags_vertical = 3
 theme = ExtResource( 2 )

@@ -44,14 +44,9 @@ func _text_changed():
             word_object = word_scene.instance()
             words[index] = word_object
             words_parent.add_child(word_object)
-            word_object.connect("edit_word", self, "_edit_word")
 
         word_object.set_word(word)
-        # word_object.set_highlighted(index == current_line)
 
-
-func _edit_word(word):
-    print("EDIT ", word)
 
 
 func _cursor_changed():

@@ -11,13 +11,10 @@ var mouse_offset = Vector2.ZERO
 onready var area = $Area2D
 onready var shape = area.get_node("CollisionShape2D").shape
 
-signal edit_word
-
 
 func _ready():
     area.connect("mouse_entered", self, "_mouse_entered")
     area.connect("mouse_exited", self, "_mouse_exited")
-    area.connect("input_event", self, "_input_event")
 
 
 func _mouse_entered():
@@ -41,11 +38,6 @@ func _input(event):
     if event is InputEventMouseMotion and self.dragging:
         global_position = get_global_mouse_position() + self.mouse_offset
 
-
-func _input_event(_viewport, event, _body_id):
-    if event is InputEventMouseButton:
-        if not event.pressed and event.button_index == BUTTON_RIGHT:
-            emit_signal("edit_word", self)
 
 
 func set_word(w):

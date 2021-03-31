@@ -23,7 +23,6 @@ func _word_scale_changed(val):
 
 
 func set_word(w):
-    # print(w.word, " ", w.word[0])
     self.word = w
     self.scale_slider.value = self.word.scale.x
 
