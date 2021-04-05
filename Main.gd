@@ -98,7 +98,10 @@ func filter_array(arr):
 func _input(event):
     if event is InputEventMouseButton:
         if event.pressed and event.button_index == BUTTON_LEFT:
-            if !editor_window.get_rect().has_point(event.position) and self.selected_word:
+            var window_rect = editor_window.get_rect()
+            # Offset the position by a bit because it doesn't include title bar
+            window_rect.position.y -= 30
+            if !window_rect.has_point(event.position) and self.selected_word:
                 self.selected_word.start_dragging()
 
         elif self.selected_word:

@@ -41,6 +41,7 @@ func set_word(w):
             field.get_node("Label").text = ch
             field.get_node("RotationSlider").value = character.rotation_degrees
             field.get_node("RotationSlider").connect("value_changed", character, "_rotation_changed")
+            field.get_node("MirrorToggle").pressed = character.mirrored
             field.get_node("MirrorToggle").connect("toggled", character, "_mirror_changed")
             field.visible = true
             characters_container.add_child(field)
