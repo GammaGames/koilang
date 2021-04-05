@@ -8,20 +8,26 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Resource",
+"class": "MyDictionary",
+"language": "GDScript",
+"path": "res://assets/Dictionary.gd"
+} ]
 _global_script_class_icons={
-
+"MyDictionary": ""
 }
 
 [application]
 
 config/name="koilang"
 run/main_scene="res://Main.tscn"
+run/low_processor_mode=true
 config/icon="res://icon.png"
 
 [autoload]
 
-Alphabet="*res://Alphabet.gd"
+Alphabet="*res://assets/Alphabet.gd"
 
 [display]
 

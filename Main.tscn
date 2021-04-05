@@ -1,7 +1,43 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
-[ext_resource path="res://theme.tres" type="Theme" id=2]
+[ext_resource path="res://assets/theme.tres" type="Theme" id=2]
+[ext_resource path="res://assets/objects/WordEdit.gd" type="Script" id=3]
+[ext_resource path="res://assets/img/icons/mirror.svg" type="Texture" id=4]
+[ext_resource path="res://assets/img/icons/rotate.svg" type="Texture" id=5]
+[ext_resource path="res://assets/img/icons/scale.svg" type="Texture" id=6]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item; render_mode unshaded;
+
+uniform float speed = 0.5; 
+uniform float volume = 6.0; 
+uniform float volume1 = 0.3; 
+uniform float volume2 = 0.7; 
+uniform float volume3 = 0.3;
+
+void fragment() { 
+    float factor; 
+    highp vec4 k = vec4(TIME) * speed;
+    k.xy = UV * volume; 
+
+    float val1 = length(0.5-fract(k.xyw *= mat3(vec3(-2.0,-1.0,0.0), vec3(3.0,-1.0,1.0), vec3(1.0,-1.0,-1.0)) * volume1)); 
+    float val2 = length(0.5-fract(k.xyw *= mat3(vec3(-2.0,-1.0,0.0), vec3(3.0,-1.0,1.0), vec3(1.0,-1.0,-1.0)) * volume2)); 
+    float val3 = length(0.5-fract(k.xyw *= mat3(vec3(-2.0,-1.0,0.0), vec3(3.0,-1.0,1.0), vec3(1.0,-1.0,-1.0)) * volume3));
+    factor = pow(min(min(val1,val2),val3), 7.0);
+    vec4 tex_color = texture(TEXTURE, UV + factor) + factor * 3.0;
+
+    COLOR = tex_color; 
+}
+"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/speed = 0.5
+shader_param/volume = 6.0
+shader_param/volume1 = 0.3
+shader_param/volume2 = 0.7
+shader_param/volume3 = 0.3
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
@@ -12,9 +48,9 @@ follow_viewport_enable = true
 [node name="WindowDialog" type="WindowDialog" parent="CanvasLayer"]
 visible = true
 margin_left = 600.0
-margin_top = 128.0
+margin_top = 60.0
 margin_right = 856.0
-margin_bottom = 384.0
+margin_bottom = 528.0
 size_flags_vertical = 3
 theme = ExtResource( 2 )
 resizable = true
@@ -36,20 +72,142 @@ __meta__ = {
 
 [node name="Stack" type="VBoxContainer" parent="CanvasLayer/WindowDialog/MarginContainer"]
 margin_right = 246.0
-margin_bottom = 246.0
+margin_bottom = 458.0
 size_flags_vertical = 3
 
 [node name="TextEdit" type="TextEdit" parent="CanvasLayer/WindowDialog/MarginContainer/Stack"]
 margin_right = 246.0
-margin_bottom = 246.0
+margin_bottom = 410.0
 size_flags_horizontal = 11
 size_flags_vertical = 3
+custom_colors/breakpoint_color = Color( 0.854902, 0.282353, 0.0901961, 1 )
 show_line_numbers = true
+breakpoint_gutter = true
 smooth_scrolling = true
 wrap_enabled = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="WordSettings" type="VBoxContainer" parent="CanvasLayer/WindowDialog/MarginContainer/Stack"]
+margin_top = 414.0
+margin_right = 246.0
+margin_bottom = 458.0
+grow_vertical = 0
+custom_constants/separation = 0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Word" type="HBoxContainer" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings"]
+margin_right = 246.0
+margin_bottom = 22.0
+
+[node name="Label" type="Label" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings/Word"]
+margin_right = 42.0
+margin_bottom = 22.0
+text = "Word"
+
+[node name="Scale" type="TextureRect" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings/Word"]
+modulate = Color( 0.372549, 0.372549, 0.372549, 1 )
+margin_left = 46.0
+margin_right = 62.0
+margin_bottom = 22.0
+texture = ExtResource( 6 )
+stretch_mode = 4
+
+[node name="ScaleSlider" type="HSlider" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings/Word"]
+margin_left = 66.0
+margin_right = 246.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = 0.1
+max_value = 3.0
+step = 0.01
+value = 1.0
+
+[node name="ScaleInput" type="SpinBox" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings/Word"]
+visible = false
+margin_left = 170.0
+margin_right = 246.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 32, 0 )
+size_flags_horizontal = 5
+min_value = 0.1
+max_value = 3.0
+step = 0.01
+value = 1.0
+allow_greater = true
+allow_lesser = true
+align = 2
+
+[node name="Character" type="HBoxContainer" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings"]
+visible = false
+margin_top = 22.0
+margin_right = 246.0
+margin_bottom = 46.0
+
+[node name="Label" type="Label" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings/Character"]
+margin_top = 1.0
+margin_right = 23.0
+margin_bottom = 23.0
+text = "ch"
+
+[node name="Rotation" type="TextureRect" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings/Character"]
+modulate = Color( 0.372549, 0.372549, 0.372549, 1 )
+margin_left = 27.0
+margin_right = 43.0
+margin_bottom = 24.0
+texture = ExtResource( 5 )
+stretch_mode = 4
+
+[node name="RotationSlider" type="HSlider" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings/Character"]
+margin_left = 47.0
+margin_right = 176.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+max_value = 360.0
+step = 0.01
+
+[node name="MirrorToggle" type="CheckButton" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings/Character"]
+modulate = Color( 0.372549, 0.372549, 0.372549, 1 )
+margin_left = 180.0
+margin_right = 246.0
+margin_bottom = 24.0
+focus_mode = 0
+enabled_focus_mode = 0
+icon = ExtResource( 4 )
+
+[node name="Characters" type="VBoxContainer" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings"]
+margin_top = 22.0
+margin_right = 246.0
+margin_bottom = 22.0
+
+[node name="Fish" type="VBoxContainer" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings"]
+margin_top = 22.0
+margin_right = 246.0
+margin_bottom = 44.0
+
+[node name="Position" type="HBoxContainer" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings/Fish"]
+margin_right = 246.0
+margin_bottom = 22.0
+
+[node name="Label" type="Label" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings/Fish/Position"]
+margin_right = 28.0
+margin_bottom = 22.0
+text = "Koi"
+
+[node name="RotationSlider" type="HSlider" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings/Fish/Position"]
+margin_left = 32.0
+margin_right = 246.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+max_value = 360.0
+step = 0.01
+
 [node name="Words" type="Node2D" parent="."]
+material = SubResource( 2 )
 position = Vector2( 208, 232 )
