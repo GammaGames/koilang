@@ -83,8 +83,8 @@ func _breakpoint_toggled(row):
     var breakpoints = editor.get_breakpoints()
     for index in range(words.size()):
         var word = words[index]
-        if word.fish != breakpoints.has(index):
-            word.set_fish(breakpoints.has(index))
+        if word.has_koi != breakpoints.has(index):
+            word.set_koi(breakpoints.has(index))
 
 
 func filter_array(arr):

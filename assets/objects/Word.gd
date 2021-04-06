@@ -5,7 +5,8 @@ var word = []
 var koi_scene = preload("res://assets/objects/Koi.tscn")
 var character_scene = preload("res://assets/objects/Character.tscn")
 var characters = []
-var fish
+var has_koi = false
+var koi = null
 var hovering = false
 var dragging = false
 var mouse_offset = Vector2.ZERO
@@ -63,7 +64,7 @@ func set_word(w):
                     characters[index] = character_object
                     add_child(character_object)
 
-                var radius = (index + 1) * 35
+                var radius = (index + 1) * 30
                 var width = 40
                 var segments = rad2deg(lookup["angle"]) / 4
                 character_object.set_character(
@@ -86,6 +87,12 @@ func set_highlighted(value):
             character.update()
 
 
-func set_fish(value):
-    print("FISH" if value else "NO FISH")
-    self.fish = value
+func set_koi(value):
+    self.has_koi = value
+
+    if self.has_koi and not self.koi:
+        self.koi = koi_scene.instance()
+        add_child(self.koi)
+    elif self.koi:
+        self.koi.queue_free()
+        self.koi = null
