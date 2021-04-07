@@ -1,5 +1,6 @@
 extends Node2D
 
+onready var camera = $Camera2D
 onready var words_parent = $Words
 onready var editor_window = $CanvasLayer/WindowDialog
 onready var stack = editor_window.get_node("MarginContainer/Stack")
@@ -15,6 +16,7 @@ var selected_words = []
 
 
 func _ready():
+    Settings.connect("debug_changed", self, "_debug_changed")
     editor_window.popup()
     editor_window.get_close_button().visible = false
     editor_window.connect("popup_hide", self, "_popup_hide")
@@ -26,6 +28,11 @@ func _ready():
 
 func _popup_hide():
     editor_window.popup()
+
+
+func _debug_changed():
+    for word in words:
+        word.update()
 
 
 func _text_changed():
@@ -49,8 +56,6 @@ func _text_changed():
             words_parent.add_child(word_object)
 
         word_object.set_word(word)
-        # if word_object.fish != breakpoints.has(index):
-        #     word_object.set_fish(breakpoints.has(index))
 
 
 
@@ -85,6 +90,7 @@ func _breakpoint_toggled(row):
         var word = words[index]
         if word.has_koi != breakpoints.has(index):
             word.set_koi(breakpoints.has(index))
+            self.word_settings.set_word(word)
 
 
 func filter_array(arr):
@@ -101,6 +107,7 @@ func _input(event):
             var window_rect = editor_window.get_rect()
             # Offset the position by a bit because it doesn't include title bar
             window_rect.position.y -= 30
+            window_rect.end.y += 30
             if !window_rect.has_point(event.position) and self.selected_word:
                 self.selected_word.start_dragging()
 

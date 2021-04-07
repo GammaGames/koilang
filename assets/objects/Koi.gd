@@ -11,13 +11,18 @@ export var angle = 0
 var segments = 8
 export var offset = Vector2.ZERO
 # export var color = Color.black
-var size = 200
+var size = 400
 
 
-func _process(delta):
-    self.angle += TAU / 20 * delta
-    if self.angle > 0.35:
-        self.angle = -0.35
+# func _process(delta):
+#     self.angle += TAU / 20 * delta
+#     if self.angle > 0.35:
+#         self.angle = -0.35
+#     update()
+
+
+func set_angle(ang):
+    self.angle = ang
     update()
 
 
@@ -36,10 +41,10 @@ func set_fish(ang=0, rot=0):
 func _draw():
     draw_primitive(
         PoolVector2Array([
-            Vector2(-0.5 + cos(angle + OFFSET), -0.35) * size,
+            Vector2(-0.5 + cos(angle / 2 + OFFSET), -0.35) * size,
             Vector2(-0.5, 0) * size,
             Vector2(0.5, 0) * size,
-            Vector2(0.5 + cos(angle + OFFSET), -0.35) * size
+            Vector2(0.5 + cos(angle / 2 + OFFSET), -0.35) * size
         ]),
         PoolColorArray([Color.white, Color.white, Color.white, Color.white]),
         PoolVector2Array([
@@ -164,86 +169,6 @@ func _draw():
 
     if segments % 2:
         print("extra")
-
-
-    # current_position.y += delta_y
-    return
-        # if current_segment < segments / 2:
-        #     # Top half
-        #     var percent = float(current_segment) / segments
-
-
-        #     # current_position.y +=
-        #     draw_primitive(
-        #         PoolVector2Array([
-        #             current_position + Vector2(-0.5, 0) * size,
-        #             current_position + Vector2(-0.5, 0.5 / segments) * size,
-        #             current_position + Vector2(0.5, 0.5 / segments) * size,
-        #             current_position + Vector2(0.5, 0) * size
-        #         ]),
-        #         PoolColorArray([Color.white, Color.red, Color.green, Color.blue]),
-        #         PoolVector2Array([
-        #             Vector2(0, percent),
-        #             Vector2(0, percent + delta_percent),
-        #             Vector2(1, percent + delta_percent),
-        #             Vector2(1, percent)
-        #         ])
-        #     )
-        #     print("TOP ", percent)
-        #     pass
-        # else:
-        #     # Bottom half
-        #     var percent = float(current_segment) / segments / 2
-        #     var y_offset = size / segments / 2
-        #     print("BOTTOM ", percent)
-        #     pass
-
-        # current_segment += 1
-        # continue
-
-
-
-
-        # var percent = float(current_segment) / half_segments
-        # current_position.x -= cos(delta_angle) * 10
-        # print(percent, " ", current_position)
-
-        # var current_arc = angle * percent + OFFSET
-
-        # draw_primitive(
-        #     PoolVector2Array([
-        #         current_position + Vector2(-0.5, 0) * size,
-        #         current_position + Vector2(-0.5, 0.5 / half_segments) * size,
-        #         current_position + Vector2(0.5, 0.5 / half_segments) * size,
-        #         current_position + Vector2(0.5, 0) * size
-        #     ]),
-        #     PoolColorArray([Color.white, Color.red, Color.green, Color.blue]),
-        #     PoolVector2Array([
-        #         Vector2(0, percent),
-        #         Vector2(0, percent + delta_percent),
-        #         Vector2(1, percent + delta_percent),
-        #         Vector2(1, percent)
-        #     ])
-        #     # texture
-        # )
-        # current_position.y += delta_y
-        # draw_primitive(
-        #     PoolVector2Array([
-        #         Vector2(cos(current_arc), sin(current_arc)) * (radius + width / 2),
-        #         Vector2(cos(current_arc + delta_arc), sin(current_arc + delta_arc)) * (radius + width / 2),
-        #         Vector2(cos(current_arc + delta_arc), sin(current_arc + delta_arc)) * (radius - width / 2),
-        #         Vector2(cos(current_arc), sin(current_arc)) * (radius - width / 2)
-        #     ]),
-        #     PoolColorArray([color, color, color, color]),
-        #     PoolVector2Array([
-        #         Vector2(percent, 0),
-        #         Vector2(percent + delta_percent, 0),
-        #         Vector2(percent + delta_percent, 1),
-        #         Vector2(percent, 1)
-        #     ]),
-        #     texture
-        # )
-        # current_segment += 1
 
 
 func _rotation_changed(val):

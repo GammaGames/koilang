@@ -28,6 +28,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Alphabet="*res://assets/Alphabet.gd"
+Settings="*res://assets/Settings.gd"
 
 [display]
 

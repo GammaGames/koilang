@@ -11,10 +11,10 @@ export var color = Color.black
 export var mirrored = false
 
 
-func set_character(ar, tex, ang=0, rad=50, w=35, segs=20):
+func set_character(ar, tex, rad=50, w=35, segs=20):
     self.arc = ar
     self.texture = tex
-    self.rotation = ang
+    # self.rotation = ang
     self.radius = rad
     self.width = w
     self.segments = segs
@@ -29,21 +29,22 @@ func _draw():
         var percent = float(current_segment) / segments
         var current_arc = arc * percent + OFFSET
 
-        # draw_primitive(
-        #     PoolVector2Array([
-        #         Vector2(cos(current_arc), sin(current_arc)) * (radius + width / 2),
-        #         Vector2(cos(current_arc + delta_arc), sin(current_arc + delta_arc)) * (radius + width / 2),
-        #         Vector2(cos(current_arc + delta_arc), sin(current_arc + delta_arc)) * (radius - width / 2),
-        #         Vector2(cos(current_arc), sin(current_arc)) * (radius - width / 2)
-        #     ]),
-        #     PoolColorArray([Color.white, Color.red, Color.green, Color.blue]),
-        #     PoolVector2Array([
-        #         Vector2(percent, 0),
-        #         Vector2(percent + delta_percent, 0),
-        #         Vector2(percent + delta_percent, 1),
-        #         Vector2(percent, 1)
-        #     ])
-        # )
+        if Settings.debug:
+            draw_primitive(
+                PoolVector2Array([
+                    Vector2(cos(current_arc), sin(current_arc)) * (radius + width / 2),
+                    Vector2(cos(current_arc + delta_arc), sin(current_arc + delta_arc)) * (radius + width / 2),
+                    Vector2(cos(current_arc + delta_arc), sin(current_arc + delta_arc)) * (radius - width / 2),
+                    Vector2(cos(current_arc), sin(current_arc)) * (radius - width / 2)
+                ]),
+                PoolColorArray([Color.white, Color.red, Color.green, Color.blue]),
+                PoolVector2Array([
+                    Vector2(percent, 0),
+                    Vector2(percent + delta_percent, 0),
+                    Vector2(percent + delta_percent, 1),
+                    Vector2(percent, 1)
+                ])
+            )
         var uv_percent = percent if not self.mirrored else 1.0 - percent
         var delta_uv_percent = delta_percent if not mirrored else delta_percent * -1
         draw_primitive(

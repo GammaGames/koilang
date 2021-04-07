@@ -1,25 +1,25 @@
 extends VBoxContainer
 
-onready var scale_slider = $Word/ScaleSlider
-onready var scale_input = $Word/ScaleInput
+onready var scale_slider = $Word/VBoxContainer/Scale/Slider
+onready var rotation_slider = $Word/VBoxContainer/Rotation/Slider
 onready var characters_container = $Characters
 onready var character_field = $Character
+onready var koi_settings = $KoiSettings
 var word
 var characters = []
 
 
 func _ready():
-    scale_slider.connect("value_changed", self, "_word_slider_changed")
-    scale_input.connect("value_changed", self, "_word_scale_changed")
+    rotation_slider.connect("value_changed", self, "_word_rotation_changed")
+    scale_slider.connect("value_changed", self, "_word_scale_changed")
 
 
-func _word_slider_changed(val):
-    self.scale_input.value = val
+func _word_rotation_changed(val):
+    if self.word:
+        self.word.rotation_degrees = val
 
 
 func _word_scale_changed(val):
-    self.scale_slider.value = val
-
     if self.word:
         self.word.scale = Vector2.ONE * val
 
@@ -46,3 +46,10 @@ func set_word(w):
             field.visible = true
             characters_container.add_child(field)
             self.characters.append(field)
+
+    if self.word.has_koi:
+        self.koi_settings.set_word(self.word)
+        self.koi_settings.visible = true
+    else:
+        self.koi_settings.visible = false
+    self.emit_signal("resized")

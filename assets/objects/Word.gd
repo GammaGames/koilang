@@ -11,14 +11,6 @@ var hovering = false
 var dragging = false
 var mouse_offset = Vector2.ZERO
 
-# onready var area = $Area2D
-# onready var shape = area.get_node("CollisionShape2D").shape
-
-
-# func _ready():
-#     area.connect("mouse_entered", self, "_mouse_entered")
-#     area.connect("mouse_exited", self, "_mouse_exited")
-
 
 func _mouse_entered():
     self.hovering = true
@@ -63,6 +55,7 @@ func set_word(w):
                     character_object = character_scene.instance()
                     characters[index] = character_object
                     add_child(character_object)
+                    character_object.rotation = index * TAU / 5
 
                 var radius = (index + 1) * 30
                 var width = 40
@@ -70,7 +63,6 @@ func set_word(w):
                 character_object.set_character(
                     lookup["angle"],
                     lookup["texture"],
-                    index * TAU / 5,
                     radius,
                     width,
                     segments
@@ -96,3 +88,8 @@ func set_koi(value):
     elif self.koi:
         self.koi.queue_free()
         self.koi = null
+
+
+func update():
+    for ch in characters:
+        ch.update()
