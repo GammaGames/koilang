@@ -82,7 +82,7 @@ size_flags_vertical = 3
 
 [node name="TextEdit" type="TextEdit" parent="CanvasLayer/WindowDialog/MarginContainer/Stack"]
 margin_right = 246.0
-margin_bottom = 350.0
+margin_bottom = 458.0
 size_flags_horizontal = 11
 size_flags_vertical = 3
 custom_colors/breakpoint_color = Color( 0.854902, 0.282353, 0.0901961, 1 )
@@ -95,6 +95,7 @@ __meta__ = {
 }
 
 [node name="WordSettings" type="VBoxContainer" parent="CanvasLayer/WindowDialog/MarginContainer/Stack"]
+visible = false
 margin_top = 354.0
 margin_right = 246.0
 margin_bottom = 458.0
