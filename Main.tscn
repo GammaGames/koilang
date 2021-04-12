@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://assets/theme.tres" type="Theme" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://assets/img/icons/scale.svg" type="Texture" id=6]
 [ext_resource path="res://assets/img/icons/angle.svg" type="Texture" id=7]
 [ext_resource path="res://assets/ui/KoiSettings.gd" type="Script" id=8]
+[ext_resource path="res://assets/img/icons/mirror_grey.svg" type="Texture" id=9]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item; render_mode unshaded;
@@ -96,7 +97,7 @@ __meta__ = {
 
 [node name="WordSettings" type="VBoxContainer" parent="CanvasLayer/WindowDialog/MarginContainer/Stack"]
 visible = false
-margin_top = 354.0
+margin_top = 418.0
 margin_right = 246.0
 margin_bottom = 458.0
 grow_vertical = 0
@@ -116,25 +117,6 @@ margin_bottom = 36.0
 size_flags_vertical = 5
 text = "Word"
 
-[node name="Rotation" type="TextureRect" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings/Word"]
-visible = false
-modulate = Color( 0.372549, 0.372549, 0.372549, 1 )
-margin_left = 46.0
-margin_right = 62.0
-margin_bottom = 36.0
-texture = ExtResource( 5 )
-stretch_mode = 4
-
-[node name="RotationSlider" type="HSlider" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings/Word"]
-visible = false
-margin_left = 66.0
-margin_right = 222.0
-margin_bottom = 36.0
-size_flags_horizontal = 3
-size_flags_vertical = 1
-max_value = 360.0
-step = 0.01
-
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings/Word"]
 margin_left = 46.0
 margin_right = 246.0
@@ -142,44 +124,24 @@ margin_bottom = 36.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Rotation" type="HBoxContainer" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings/Word/VBoxContainer"]
-margin_right = 200.0
-margin_bottom = 16.0
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings/Word/VBoxContainer/Rotation"]
-modulate = Color( 0.372549, 0.372549, 0.372549, 1 )
-margin_right = 16.0
-margin_bottom = 16.0
-texture = ExtResource( 5 )
-stretch_mode = 4
-
-[node name="Slider" type="HSlider" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings/Word/VBoxContainer/Rotation"]
-margin_left = 20.0
+[node name="RotationSlider" type="HSlider" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings/Word/VBoxContainer"]
 margin_right = 200.0
 margin_bottom = 16.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
+custom_icons/grabber_highlight = ExtResource( 5 )
+custom_icons/grabber = ExtResource( 5 )
 max_value = 360.0
 step = 0.01
 
-[node name="Scale" type="HBoxContainer" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings/Word/VBoxContainer"]
+[node name="ScaleSlider" type="HSlider" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings/Word/VBoxContainer"]
 margin_top = 20.0
 margin_right = 200.0
 margin_bottom = 36.0
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings/Word/VBoxContainer/Scale"]
-modulate = Color( 0.372549, 0.372549, 0.372549, 1 )
-margin_right = 16.0
-margin_bottom = 16.0
-texture = ExtResource( 6 )
-stretch_mode = 4
-
-[node name="Slider" type="HSlider" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings/Word/VBoxContainer/Scale"]
-margin_left = 20.0
-margin_right = 200.0
-margin_bottom = 16.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
+custom_icons/grabber_highlight = ExtResource( 6 )
+custom_icons/grabber = ExtResource( 6 )
 min_value = 0.1
 max_value = 3.0
 step = 0.01
@@ -195,9 +157,9 @@ __meta__ = {
 
 [node name="Character" type="HBoxContainer" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings"]
 visible = false
-margin_top = 36.0
+margin_top = 40.0
 margin_right = 246.0
-margin_bottom = 60.0
+margin_bottom = 64.0
 
 [node name="Label" type="Label" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings/Character"]
 margin_top = 1.0
@@ -205,31 +167,25 @@ margin_right = 23.0
 margin_bottom = 23.0
 text = "ch"
 
-[node name="Rotation" type="TextureRect" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings/Character"]
-modulate = Color( 0.372549, 0.372549, 0.372549, 1 )
-margin_left = 27.0
-margin_right = 43.0
-margin_bottom = 24.0
-texture = ExtResource( 5 )
-stretch_mode = 4
-
 [node name="RotationSlider" type="HSlider" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings/Character"]
-margin_left = 47.0
-margin_right = 176.0
+margin_left = 27.0
+margin_right = 218.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
+custom_icons/grabber_highlight = ExtResource( 5 )
+custom_icons/grabber = ExtResource( 5 )
 max_value = 360.0
 step = 0.01
 
-[node name="MirrorToggle" type="CheckButton" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings/Character"]
-modulate = Color( 0.372549, 0.372549, 0.372549, 1 )
-margin_left = 180.0
+[node name="MirrorToggle" type="CheckBox" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings/Character"]
+margin_left = 222.0
 margin_right = 246.0
 margin_bottom = 24.0
 focus_mode = 0
+custom_icons/checked = ExtResource( 4 )
+custom_icons/unchecked = ExtResource( 9 )
 enabled_focus_mode = 0
-icon = ExtResource( 4 )
 
 [node name="Characters" type="VBoxContainer" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings"]
 margin_top = 40.0
@@ -237,12 +193,13 @@ margin_right = 246.0
 margin_bottom = 40.0
 
 [node name="KoiSettings" type="VBoxContainer" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings"]
+visible = false
 margin_top = 40.0
 margin_right = 246.0
 margin_bottom = 104.0
 script = ExtResource( 8 )
 
-[node name="HSeparator2" type="HSeparator" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings/KoiSettings"]
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings/KoiSettings"]
 margin_right = 246.0
 margin_bottom = 4.0
 __meta__ = {
@@ -267,66 +224,36 @@ margin_bottom = 56.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Rotation" type="HBoxContainer" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings/KoiSettings/Koi/VBoxContainer"]
-margin_right = 214.0
-margin_bottom = 16.0
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings/KoiSettings/Koi/VBoxContainer/Rotation"]
-modulate = Color( 0.372549, 0.372549, 0.372549, 1 )
-margin_right = 16.0
-margin_bottom = 16.0
-texture = ExtResource( 5 )
-stretch_mode = 4
-
-[node name="Slider" type="HSlider" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings/KoiSettings/Koi/VBoxContainer/Rotation"]
-margin_left = 20.0
+[node name="RotationSlider" type="HSlider" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings/KoiSettings/Koi/VBoxContainer"]
 margin_right = 214.0
 margin_bottom = 16.0
 size_flags_horizontal = 3
+custom_icons/grabber_highlight = ExtResource( 5 )
+custom_icons/grabber = ExtResource( 5 )
 max_value = 360.0
 step = 0.01
 
-[node name="Scale" type="HBoxContainer" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings/KoiSettings/Koi/VBoxContainer"]
+[node name="ScaleSlider" type="HSlider" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings/KoiSettings/Koi/VBoxContainer"]
 margin_top = 20.0
 margin_right = 214.0
 margin_bottom = 36.0
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings/KoiSettings/Koi/VBoxContainer/Scale"]
-modulate = Color( 0.372549, 0.372549, 0.372549, 1 )
-margin_right = 16.0
-margin_bottom = 16.0
-texture = ExtResource( 6 )
-stretch_mode = 4
-
-[node name="Slider" type="HSlider" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings/KoiSettings/Koi/VBoxContainer/Scale"]
-margin_left = 20.0
-margin_right = 214.0
-margin_bottom = 16.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
+custom_icons/grabber_highlight = ExtResource( 6 )
+custom_icons/grabber = ExtResource( 6 )
 min_value = 0.1
 max_value = 3.0
 step = 0.01
 value = 1.0
 
-[node name="Tail" type="HBoxContainer" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings/KoiSettings/Koi/VBoxContainer"]
+[node name="TailSlider" type="HSlider" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings/KoiSettings/Koi/VBoxContainer"]
 margin_top = 40.0
 margin_right = 214.0
 margin_bottom = 56.0
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings/KoiSettings/Koi/VBoxContainer/Tail"]
-modulate = Color( 0.372549, 0.372549, 0.372549, 1 )
-margin_right = 16.0
-margin_bottom = 16.0
-texture = ExtResource( 7 )
-stretch_mode = 4
-
-[node name="Slider" type="HSlider" parent="CanvasLayer/WindowDialog/MarginContainer/Stack/WordSettings/KoiSettings/Koi/VBoxContainer/Tail"]
-margin_left = 20.0
-margin_right = 214.0
-margin_bottom = 16.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
+custom_icons/grabber_highlight = ExtResource( 7 )
+custom_icons/grabber = ExtResource( 7 )
 min_value = -0.35
 max_value = 0.35
 step = 0.01

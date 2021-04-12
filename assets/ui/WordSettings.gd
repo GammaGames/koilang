@@ -1,7 +1,7 @@
 extends VBoxContainer
 
-onready var scale_slider = $Word/VBoxContainer/Scale/Slider
-onready var rotation_slider = $Word/VBoxContainer/Rotation/Slider
+onready var scale_slider = $Word/VBoxContainer/ScaleSlider
+onready var rotation_slider = $Word/VBoxContainer/RotationSlider
 onready var characters_container = $Characters
 onready var character_field = $Character
 onready var koi_settings = $KoiSettings

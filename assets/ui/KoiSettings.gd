@@ -1,8 +1,8 @@
 extends VBoxContainer
 
-onready var rotation_slider = $Koi/VBoxContainer/Rotation/Slider
-onready var scale_slider = $Koi/VBoxContainer/Scale/Slider
-onready var tail_slider = $Koi/VBoxContainer/Tail/Slider
+onready var rotation_slider = $Koi/VBoxContainer/RotationSlider
+onready var scale_slider = $Koi/VBoxContainer/ScaleSlider
+onready var tail_slider = $Koi/VBoxContainer/TailSlider
 var word = null
 
 
