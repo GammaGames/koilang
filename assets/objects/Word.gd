@@ -35,8 +35,8 @@ func _input(event):
 
 
 
-func set_word(w):
-    self.text = w.join("").strip_edges()
+func set_word(w, t=""):
+    self.text = t
     self.word = w
     # Remove unused to prevent memory leaks and resize
     if word.size() < characters.size():

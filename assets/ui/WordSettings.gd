@@ -7,6 +7,7 @@ onready var character_field = $Character
 onready var koi_settings = $KoiSettings
 var word
 var characters = []
+var editing_characters = []
 
 
 func _ready():
@@ -53,3 +54,15 @@ func set_word(w):
     else:
         self.koi_settings.visible = false
     self.emit_signal("resized")
+
+
+func edit_characters(char_indexes):
+    # Get characters
+    var prefix_chars = self.word.text.substr(0, char_indexes[0]).strip_edges().split(" ", false)
+    var stop_at_char = self.word.text.substr(0, char_indexes[-1]).strip_edges().split(" ", false)
+    for current in range(word.characters.size()):
+        if current == stop_at_char.size():
+            break
+        if current >= prefix_chars.size():
+            # TODO connect rotation and mirror sliders
+            pass
