@@ -55,7 +55,7 @@ func set_word(w, t=""):
                     character_object = character_scene.instance()
                     characters[index] = character_object
                     add_child(character_object)
-                    character_object.rotation = index * TAU / 5
+                    character_object.rotation = fmod(index * TAU / 5, TAU)
 
                 var radius = (index + 1) * 30
                 var width = 40
@@ -67,7 +67,6 @@ func set_word(w, t=""):
                     width,
                     segments
                 )
-                # shape.radius = radius
             else:
                 print("ERROR: ", character)
 
