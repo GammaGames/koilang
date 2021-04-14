@@ -8,6 +8,7 @@ onready var koi_settings = $KoiSettings
 var word
 var characters = []
 var editing_characters = []
+var editing_characters_signal_ids = []
 
 
 func _ready():
@@ -57,6 +58,10 @@ func set_word(w):
 
 
 func edit_characters(char_indexes):
+    for id in self.editing_characters_signal_ids:
+        # TODO disconnect old signals
+        pass
+
     # Get characters
     var prefix_chars = self.word.text.substr(0, char_indexes[0]).strip_edges().split(" ", false)
     var stop_at_char = self.word.text.substr(0, char_indexes[-1]).strip_edges().split(" ", false)
@@ -65,4 +70,5 @@ func edit_characters(char_indexes):
             break
         if current >= prefix_chars.size():
             # TODO connect rotation and mirror sliders
-            pass
+            var char_rotation_slider = characters_container.get_child(current).get_node("RotationSlider")
+            print(char_rotation_slider.value)
