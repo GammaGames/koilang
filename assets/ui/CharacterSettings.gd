@@ -1,16 +1,20 @@
 extends HBoxContainer
 
-
-func link_slider(slider):
-    # TODO connect slider signal and store id/previous value
-    pass
-
-
-func unlink_slider():
-    # TODO removed stored signal id
-    pass
+onready var slider = $RotationSlider
+var character = null
+var linked_characters = []
+var previous_value = 0
 
 
-func _linked_value_changed(value):
-    # TODO Get difference between cached and current value, update my slider
-    pass
+
+func link_characters(characters):
+    self.unlink_characters()
+    for character in characters:
+        if character != self:
+            slider.share(character.slider)
+
+    self.linked_characters = characters
+
+
+func unlink_characters():
+    slider.unshare()

@@ -36,9 +36,7 @@ func _debug_changed():
 
 
 func _text_changed():
-    # var current_line = editor.cursor_get_line()
     var lines = filter_array(editor.text.to_lower().split("\n"))
-    # var breakpoints = editor.get_breakpoints()
 
     # Remove unused to prevent memory leaks and resize
     if lines.size() < words.size():
@@ -60,9 +58,10 @@ func _text_changed():
 
 func _cursor_changed():
     self.selected_words = []
-    var current_lines = [editor.cursor_get_line()] if !editor.get_selection_text() \
+    var current_lines = [editor.cursor_get_line()] if \
+        !editor.is_selection_active() \
         else range(editor.get_selection_from_line(), editor.get_selection_to_line() + 1)
-    var current_chars = -1 if current_lines.size() > 1 \
+    var current_chars = [-1] if !editor.is_selection_active() \
         else range(editor.get_selection_from_column(), editor.get_selection_to_column() + 1)
 
     for index in range(words.size()):
@@ -80,12 +79,6 @@ func _cursor_changed():
 
     if self.selected_words.size() > 1:
         word_settings.visible = false
-
-    # if self.selected_words.size() == 1:
-    #     self.selected_words = []
-    # else:
-    #     print("Lines: ", editor.get_selection_from_line(), " -> ", editor.get_selection_to_line())
-    #     print("Columns: ", , " -> ", )
 
 
 func _breakpoint_toggled(row):
