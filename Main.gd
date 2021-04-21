@@ -17,17 +17,17 @@ var selected_words = []
 
 func _ready():
     Settings.connect("debug_changed", self, "_debug_changed")
-    editor_window.popup()
-    editor_window.get_close_button().visible = false
-    editor_window.connect("popup_hide", self, "_popup_hide")
+    # editor_window.popup()
+    # editor_window.get_close_button().visible = false
+    # editor_window.connect("popup_hide", self, "_popup_hide")
     editor.connect("text_changed", self, "_text_changed")
     editor.connect("cursor_changed", self, "_cursor_changed")
     editor.connect("breakpoint_toggled", self, "_breakpoint_toggled")
     editor.grab_focus()
 
 
-func _popup_hide():
-    editor_window.popup()
+# func _popup_hide():
+#     editor_window.popup()
 
 
 func _debug_changed():
