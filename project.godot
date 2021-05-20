@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "MyDictionary",
 "language": "GDScript",
 "path": "res://assets/Dictionary.gd"
+}, {
+"base": "Camera2D",
+"class": "ZoomingCamera2D",
+"language": "GDScript",
+"path": "res://assets/ui/ZoomingCamera.gd"
 } ]
 _global_script_class_icons={
-"MyDictionary": ""
+"MyDictionary": "",
+"ZoomingCamera2D": ""
 }
 
 [application]
@@ -38,7 +44,21 @@ window/stretch/aspect="expand"
 
 enabled=PoolStringArray(  )
 
+[input]
+
+zoom_in={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":4,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+zoom_out={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":5,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+
 [rendering]
 
+quality/driver/driver_name="GLES2"
 environment/default_clear_color=Color( 1, 1, 1, 1 )
 environment/default_environment="res://default_env.tres"

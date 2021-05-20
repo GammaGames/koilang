@@ -1,17 +1,19 @@
 extends Node2D
 
-onready var camera = $Camera2D
+onready var camera = $ZoomingCamera
 onready var words_parent = $Words
 onready var editor_window = $CanvasLayer/WindowDialog
 onready var stack = editor_window.get_node("MarginContainer/Stack")
 onready var editor = stack.get_node("TextEdit")
 onready var word_settings = stack.get_node("WordSettings")
+onready var menu = $CanvasLayer/Menu
 
 var word_scene = preload("res://assets/objects/Word.tscn")
 var word_edit_node = null
 var words = []
 var selected_word = null
 var selected_words = []
+var mode = null
 # var dragging = null
 
 
